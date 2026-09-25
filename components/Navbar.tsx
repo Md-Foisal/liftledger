@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
+import usePlan from "@/hooks/usePlan";
 
 const links = [
   { href: "/", label: "Workouts" },
@@ -11,9 +12,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  // counts will come from the plan store later
-  const plan: unknown[] = [];
-  const saved: unknown[] = [];
+  const { plan, saved } = usePlan();
 
   // details page is part of workouts too
   const isActive = (href: string) =>
