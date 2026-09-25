@@ -42,12 +42,12 @@ export default function MyPlan({ initialTab }: { initialTab: Tab }) {
 
   function handleRemovePlan(w: Workout) {
     removeFromPlan(w.id);
-    toast(`Removed from today's plan`, { description: w.name });
+    toast.success(`Removed from today's plan`, { description: w.name });
   }
 
   function handleRemoveSaved(w: Workout) {
     removeFromSaved(w.id);
-    toast("Removed from saved", { description: w.name });
+    toast.success("Removed from saved", { description: w.name });
   }
 
   const tabs: { key: Tab; label: string }[] = [

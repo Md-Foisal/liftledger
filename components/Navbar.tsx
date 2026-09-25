@@ -38,7 +38,7 @@ export default function Navbar() {
               className={`rounded-full px-4 py-1.5 text-xs leading-4 transition-colors ${
                 isActive(link.href)
                   ? "bg-[#1a2312] font-semibold text-lime"
-                  : "font-medium text-muted hover:text-white"
+                  : "font-medium text-muted hover:bg-[#1a2312] hover:text-white"
               }`}
             >
               {link.label}
@@ -47,13 +47,21 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-6">
-          <Link href="/my-plan" className="group flex items-center gap-2" aria-label={`Plan: ${plan.length}`}>
+          <Link
+            href="/my-plan"
+            className="group -mx-2.5 -my-1 flex items-center gap-2 rounded-full px-2.5 py-1 transition-colors hover:bg-white/[0.06]"
+            aria-label={`Plan: ${plan.length}`}
+          >
             <span className="text-xs leading-4 font-medium text-[#d1d5db] group-hover:text-white">Plan</span>
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-lime px-1.5 text-[11px] leading-4 font-bold text-black">
               {plan.length}
             </span>
           </Link>
-          <Link href="/my-plan?tab=saved" className="group flex items-center gap-2" aria-label={`Saved: ${saved.length}`}>
+          <Link
+            href="/my-plan?tab=saved"
+            className="group -mx-2.5 -my-1 flex items-center gap-2 rounded-full px-2.5 py-1 transition-colors hover:bg-white/[0.06]"
+            aria-label={`Saved: ${saved.length}`}
+          >
             <span className="text-xs leading-4 font-medium text-muted group-hover:text-white">Saved</span>
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#2d313b] px-1.5 text-[11px] leading-4 font-medium text-[#d1d5db]">
               {saved.length}

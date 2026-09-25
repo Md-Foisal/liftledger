@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ToastIcon from "@/components/ToastIcon";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
@@ -37,14 +38,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <Toaster
           theme="dark"
-          position="top-center"
-          toastOptions={{
-            style: {
-              background: "#15171d",
-              border: "1px solid #232834",
-              color: "#e5e7eb",
-            },
+          position="top-right"
+          icons={{
+            success: <ToastIcon type="success" />,
+            error: <ToastIcon type="error" />,
           }}
+          offset={{ top: 92, right: 24 }}
+          mobileOffset={{ top: 120, right: 16 }}
+          toastOptions={{ className: "fitlog-toast" }}
         />
       </body>
     </html>
