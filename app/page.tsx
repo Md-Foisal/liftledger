@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Library from "@/components/Library";
 
 export default function Home() {
   return (
@@ -14,6 +15,8 @@ export default function Home() {
             Twelve lifts covering every major muscle group.
           </p>
         </div>
+
+        <Library />
       </section>
     </main>
   );
