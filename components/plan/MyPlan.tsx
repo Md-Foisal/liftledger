@@ -9,12 +9,22 @@ import Loader from "../Loader";
 import EmptyState from "./EmptyState";
 import PlanCard from "./PlanCard";
 import PlanStats from "./PlanStats";
+import SortDropdown, { type SortKey } from "./SortDropdown";
 
 export type Tab = "today" | "saved";
+
+// duration: short first, calories and rating: high first
+function sortList<T extends Workout>(list: T[], key: SortKey) {
+  const copy = [...list];
+  if (key === "duration") return copy.sort((a, b) => a.duration - b.duration);
+  if (key === "calories") return copy.sort((a, b) => b.caloriesBurned - a.caloriesBurned);
+  return copy.sort((a, b) => b.rating - a.rating);
+}
 
 export default function MyPlan({ initialTab }: { initialTab: Tab }) {
   const { ready, plan, saved } = usePlan();
   const [tab, setTab] = useState<Tab>(initialTab);
+  const [sortBy, setSortBy] = useState<SortKey>("duration");
 
   const minutes = plan.reduce((sum, w) => sum + w.duration, 0);
   const calories = plan.reduce((sum, w) => sum + w.caloriesBurned, 0);
@@ -45,8 +55,8 @@ export default function MyPlan({ initialTab }: { initialTab: Tab }) {
     { key: "saved", label: "Saved" },
   ];
 
-  const sortedPlan = plan;
-  const sortedSaved = saved;
+  const sortedPlan = sortList(plan, sortBy);
+  const sortedSaved = sortList(saved, sortBy);
   const list = tab === "today" ? sortedPlan : sortedSaved;
 
   return (
@@ -78,6 +88,7 @@ export default function MyPlan({ initialTab }: { initialTab: Tab }) {
           })}
         </div>
 
+        <SortDropdown value={sortBy} onChange={setSortBy} />
       </div>
 
       {!ready ? (
