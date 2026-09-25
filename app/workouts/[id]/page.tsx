@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import DetailActions from "@/components/DetailActions";
 import { getWorkout } from "@/lib/api";
 
 export async function generateMetadata({ params }: PageProps<"/workouts/[id]">): Promise<Metadata> {
@@ -73,7 +74,7 @@ export default async function WorkoutDetails({ params }: PageProps<"/workouts/[i
             ))}
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="mb-9 flex flex-col gap-4">
             <h2 className="text-base leading-6 font-extrabold tracking-[0.8px] text-white uppercase">
               INSTRUCTIONS
             </h2>
@@ -87,6 +88,7 @@ export default async function WorkoutDetails({ params }: PageProps<"/workouts/[i
             </ol>
           </div>
 
+          <DetailActions workout={workout} />
         </div>
       </div>
     </main>
