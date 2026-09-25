@@ -16,7 +16,7 @@ export default function PlanCard({ workout, done = false, onDone, onRemove }: Pr
   return (
     <article className="flex flex-col gap-4 rounded-2xl border border-line-2 bg-[#14171e] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-[17px]">
       <div className={`flex items-center gap-4 ${done ? "opacity-60" : ""}`}>
-        <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-[#1f2937] sm:w-36">
+        <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-xl bg-[#1f2937] sm:w-36">
           <Image src={workout.image} alt={workout.name} fill sizes="144px" className="object-cover" />
         </div>
         <div className="flex min-w-0 flex-col gap-0.5">

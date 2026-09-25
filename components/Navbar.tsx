@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#1c1f26] bg-[rgba(12,13,16,0.95)] backdrop-blur-[2px]">
-      <nav className="mx-auto flex max-w-[1280px] h-20 items-center justify-between px-6">
+      <nav className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-y-3 px-4 py-4 sm:px-6 md:h-20 md:flex-nowrap md:py-0">
         <Link href="/" className="flex items-center gap-2.5" aria-label="FitLog home">
           <Logo size={28} />
           <span className="font-display text-lg leading-7 font-bold tracking-[0.9px] text-white uppercase">
@@ -30,7 +30,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="order-3 flex w-full items-center justify-center gap-1 md:order-none md:w-auto">
           {links.map((link) => (
             <Link
               key={link.href}

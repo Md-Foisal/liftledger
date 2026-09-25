@@ -20,9 +20,9 @@ export default function WorkoutStats({ duration, calories, rating, variant = "ca
   ];
 
   return (
-    <div className={`flex items-center ${isPlan ? "gap-3" : "gap-4"}`}>
+    <div className={`flex flex-wrap items-center gap-y-1 ${isPlan ? "gap-x-3" : "gap-x-4"}`}>
       {items.map(({ icon: Icon, text, label }) => (
-        <span key={label} className="flex items-center gap-1.5" title={label}>
+        <span key={label} className="flex items-center gap-1.5 whitespace-nowrap" title={label}>
           <Icon size={14} className={iconClass} aria-hidden="true" />
           <span className={`text-xs leading-4 ${textClass}`}>{text}</span>
         </span>
