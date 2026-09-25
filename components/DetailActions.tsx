@@ -4,13 +4,14 @@ import { Bookmark, BookmarkCheck, CalendarCheck, CalendarPlus } from "lucide-rea
 import { toast } from "sonner";
 import type { Workout } from "@/lib/api";
 import usePlan from "@/hooks/usePlan";
-import { addToPlan, saveForLater } from "@/lib/planStore";
+import { PLAN_CAP, activeCount, addToPlan, saveForLater } from "@/lib/planStore";
 
 export default function DetailActions({ workout }: { workout: Workout }) {
   const { ready, plan, saved } = usePlan();
 
   const inPlan = plan.some((p) => p.id === workout.id);
   const isSaved = saved.some((s) => s.id === workout.id);
+  const planFull = !inPlan && activeCount(plan) >= PLAN_CAP;
 
   function handleAdd() {
     const result = addToPlan(workout);
@@ -31,7 +32,7 @@ export default function DetailActions({ workout }: { workout: Workout }) {
         <button
           type="button"
           onClick={handleAdd}
-          disabled={!ready || inPlan}
+          disabled={!ready || inPlan || planFull}
           className="inline-flex items-center justify-center gap-2 rounded-xl bg-volt px-6 py-3 text-sm leading-5 font-semibold text-[#0f1115] shadow-[0_1px_1px_rgba(0,0,0,0.05)] transition hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:brightness-100"
         >
           {inPlan ? <CalendarCheck size={16} /> : <CalendarPlus size={16} />}
@@ -49,6 +50,11 @@ export default function DetailActions({ workout }: { workout: Workout }) {
         </button>
       </div>
 
+      {planFull && (
+        <p className="text-xs text-muted">
+          Today&apos;s plan already has {PLAN_CAP} lifts. Mark one as done to add more.
+        </p>
+      )}
     </div>
   );
 }
