@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import Hero from "@/components/Hero";
 import Library from "@/components/Library";
+import Loader from "@/components/Loader";
 
 export default function Home() {
   return (
@@ -16,7 +18,10 @@ export default function Home() {
           </p>
         </div>
 
-        <Library />
+        {/* hero shows first, cards come in when the api answers */}
+        <Suspense fallback={<Loader />}>
+          <Library />
+        </Suspense>
       </section>
     </main>
   );
