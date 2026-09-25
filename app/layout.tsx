@@ -43,8 +43,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             success: <ToastIcon type="success" />,
             error: <ToastIcon type="error" />,
           }}
-          offset={{ top: 92, right: 24 }}
-          mobileOffset={{ top: 120, right: 16 }}
+          offset={{ top: 14, right: 24 }}
+          mobileOffset={{ top: 12, right: 16 }}
           toastOptions={{ className: "fitlog-toast" }}
         />
       </body>
