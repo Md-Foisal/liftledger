@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import usePlan from "@/hooks/usePlan";
+import type { Workout } from "@/lib/api";
+import { markDone, removeFromPlan, removeFromSaved } from "@/lib/planStore";
 import Loader from "../Loader";
 import EmptyState from "./EmptyState";
 import PlanCard from "./PlanCard";
@@ -22,12 +25,29 @@ export default function MyPlan({ initialTab }: { initialTab: Tab }) {
     window.history.replaceState(null, "", next === "saved" ? "/my-plan?tab=saved" : "/my-plan");
   }
 
+  function handleDone(w: Workout) {
+    markDone(w.id);
+    toast.success("Nice work! Marked as done", { description: w.name });
+  }
+
+  function handleRemovePlan(w: Workout) {
+    removeFromPlan(w.id);
+    toast(`Removed from today's plan`, { description: w.name });
+  }
+
+  function handleRemoveSaved(w: Workout) {
+    removeFromSaved(w.id);
+    toast("Removed from saved", { description: w.name });
+  }
+
   const tabs: { key: Tab; label: string }[] = [
     { key: "today", label: "Today's Plan" },
     { key: "saved", label: "Saved" },
   ];
 
-  const list = tab === "today" ? plan : saved;
+  const sortedPlan = plan;
+  const sortedSaved = saved;
+  const list = tab === "today" ? sortedPlan : sortedSaved;
 
   return (
     <div className="flex flex-col gap-6">
@@ -66,9 +86,19 @@ export default function MyPlan({ initialTab }: { initialTab: Tab }) {
         <EmptyState />
       ) : (
         <div className="flex flex-col gap-4">
-          {list.map((w) => (
-            <PlanCard key={w.id} workout={w} />
-          ))}
+          {tab === "today"
+            ? sortedPlan.map((w) => (
+                <PlanCard
+                  key={w.id}
+                  workout={w}
+                  done={w.done}
+                  onDone={() => handleDone(w)}
+                  onRemove={() => handleRemovePlan(w)}
+                />
+              ))
+            : sortedSaved.map((w) => (
+                <PlanCard key={w.id} workout={w} onRemove={() => handleRemoveSaved(w)} />
+              ))}
         </div>
       )}
     </div>
